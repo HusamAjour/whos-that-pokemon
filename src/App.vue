@@ -1,27 +1,15 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <NewComponent msg="Welcome to Your Vue.js App" />
-  </div>
+  <main id="app" class="max-w-1140 m-auto">
+    <MainGrid />
+  </main>
 </template>
 
 <script>
-import NewComponent from "./components/NewComponent.vue"
+import MainGrid from "./components/MainGrid.vue";
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    NewComponent
-  }
-}
+    MainGrid,
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
