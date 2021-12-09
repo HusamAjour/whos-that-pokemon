@@ -1,6 +1,5 @@
 <template>
   <div class="p-4 shadow">
-    <!-- <img src="{{data.url}}" alt="{{data.name}}" /> -->
     <pre>{{
       data.id < 10
         ? `00${data.id}`
@@ -26,11 +25,8 @@
     </h1>
     <div class="flex">
       <div v-for="(pokemonType, index) in data.types" :key="index">
-        <!-- :class="`bg-${pokemonType.type.name}`" -->
-
-        <!-- {{ console.log(pokemonTypes[pokemonType.type.name].logo) }} -->
         <img
-          :src="pokemonTypes[pokemonType.type.name].logo"
+          :src="getImgUrl(pokemonType.type.name)"
           class="w-8"
           :alt="pokemonType.type.name"
         />
@@ -38,7 +34,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: "PokemonCard",
@@ -112,6 +107,12 @@ export default {
   },
   created() {
     // this.console.log(this.data);
+  },
+  methods: {
+    getImgUrl(pet) {
+      var images = require.context("../assets/", false, /\.png$/);
+      return images("./" + pet + ".png");
+    },
   },
 };
 </script>

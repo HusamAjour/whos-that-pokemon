@@ -58,30 +58,43 @@ export default {
       let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
       const fetchedData = await response.json();
       this.console.log(fetchedData);
-      const allPokemons = [];
       // let y = await this.fetchSinglePokemon(fetchedData.results);
-      await fetchedData.results.forEach(async (pokemon) => {
-        let z = await fetch(pokemon.url);
-        let w = await z.json();
-        allPokemons.push({ ...w, url: pokemon.url });
-      });
+      // await fetchedData.results.forEach(async (pokemon) => {
+      //   let z = await fetch(pokemon.url);
+      //   let w = await z.json();
+      //   allPokemons.push({ ...w, url: pokemon.url });
+      // });
 
-      let newArr = allPokemons.sort((a, b) => {
-        this.console.log("H");
-        if (a.id < b.id) {
-          return -1;
-        }
-        if (a.id > b.id) {
-          return 1;
-        }
-        return 0;
-      });
-      this.state.pokemons = newArr;
-      this.console.log("63: ", newArr);
-      // this.state.loading = false;
-      setTimeout(() => {
-        this.state.loading = false;
-      }, 1000);
+      // let promises = [];
+      // for (let i = 0; i < fetchedData.length; i++) {
+      //   promises.push(fetch(fetchedData[i].url));
+      // }
+
+      const allPokemons = await Promise.all(
+        fetchedData.results.map(async (pokemon) => {
+          const resp = await fetch(pokemon.url);
+          return resp.json();
+        })
+      );
+
+      this.console.log(allPokemons);
+      if (allPokemons.length) {
+        let newArr = allPokemons.sort((a, b) => {
+          if (a.id < b.id) {
+            return -1;
+          }
+          if (a.id > b.id) {
+            return 1;
+          }
+          return 0;
+        });
+        this.state.pokemons = newArr;
+        this.console.log("79: ", newArr);
+        // this.state.loading = false;
+        setTimeout(() => {
+          this.state.loading = false;
+        }, 1000);
+      }
     },
   },
 };
