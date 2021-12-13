@@ -1,25 +1,8 @@
-<template>
-  <section class="w-full min-h-screen flex justify-center items-center">
-    <div v-if="state.loading === true">
-      <img src="../assets/pokeball.png" class="animate-spin w-20" />
-    </div>
-    <div v-else>
-      <div class="grid grid-cols-3 gap-4">
-        <div v-for="(pokemon, index) in state.pokemons" :key="index">
-          <PokemonCard :data="{ ...pokemon }" />
-        </div>
-      </div>
-    </div>
-  </section>
-</template>
-
 <script>
-import PokemonCard from "./PokemonCard";
+import PokemonCard from "./PokemonCard.vue";
 export default {
   name: "MainGrid",
-  props: {
-    data: Object,
-  },
+
   components: {
     PokemonCard,
   },
@@ -53,7 +36,7 @@ export default {
     // }
     // return 0;
     // },
-    async fetchData() {
+    fetchData: async function () {
       this.error = this.post = null;
       let response = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
       const fetchedData = await response.json();
@@ -64,19 +47,16 @@ export default {
       //   let w = await z.json();
       //   allPokemons.push({ ...w, url: pokemon.url });
       // });
-
       // let promises = [];
       // for (let i = 0; i < fetchedData.length; i++) {
       //   promises.push(fetch(fetchedData[i].url));
       // }
-
       const allPokemons = await Promise.all(
         fetchedData.results.map(async (pokemon) => {
           const resp = await fetch(pokemon.url);
           return resp.json();
         })
       );
-
       this.console.log(allPokemons);
       if (allPokemons.length) {
         let newArr = allPokemons.sort((a, b) => {
@@ -93,9 +73,25 @@ export default {
         // this.state.loading = false;
         setTimeout(() => {
           this.state.loading = false;
+          console.log("Hi");
         }, 1000);
       }
     },
   },
 };
 </script>
+
+<template>
+  <section class="w-full min-h-screen flex justify-center items-center">
+    <div v-if="state.loading">
+      <img src="../assets/pokeball.png" class="animate-spin w-20" />
+    </div>
+    <div v-else-if="state.pokemons.length && !state.loading">
+      <div class="grid grid-cols-3 gap-4">
+        <div v-for="(pokemon, index) in state.pokemons" :key="index">
+          <PokemonCard :data="pokemon" />
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
