@@ -82,12 +82,12 @@ export default {
 </script>
 
 <template>
-  <section class="w-full min-h-screen flex justify-center items-center">
+  <section class="w-full min-h-screen flex justify-center items-center p-4">
     <div v-if="state.loading">
       <img src="../assets/pokeball.png" class="animate-spin w-20" />
     </div>
     <div v-else-if="state.pokemons.length && !state.loading">
-      <div class="grid grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-4">
         <div v-for="(pokemon, index) in state.pokemons" :key="index">
           <PokemonCard :data="pokemon" />
         </div>

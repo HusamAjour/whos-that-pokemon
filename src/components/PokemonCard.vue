@@ -20,7 +20,7 @@ export default {
 </script>
 
 <template>
-  <div class="p-4 shadow">
+  <div class="p-4 shadow max-w-360 m-auto">
     <pre>{{
       data.id < 10
         ? `00${data.id}`
