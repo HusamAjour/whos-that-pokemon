@@ -9,7 +9,7 @@ export default {
     window: () => window,
   },
   created() {
-    this.console.log(this.data);
+    // this.console.log(this.data);
   },
   methods: {
     getImgUrl(name) {
