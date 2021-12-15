@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
+      pokemon: { yellow: "#ffcc01", blue: "#2c6cb5" },
       transparent: "transparent",
       current: "currentColor",
       black: colors.black,
