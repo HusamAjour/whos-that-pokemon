@@ -1,8 +1,12 @@
 <script>
+import { getImgUrl } from "../utils/util";
 export default {
   name: "PokemonCard",
   props: {
     data: Object,
+  },
+  data() {
+    return { path: ".." };
   },
   computed: {
     console: () => console,
@@ -12,9 +16,7 @@ export default {
     // this.console.log(this.data);
   },
   methods: {
-    getImgUrl(name) {
-      return new URL(`../assets/${name}.png`, import.meta.url).href;
-    },
+    getImgUrl,
   },
 };
 </script>
@@ -47,7 +49,8 @@ export default {
     <div class="flex">
       <div v-for="(pokemonType, index) in data.types" :key="index">
         <img
-          :src="getImgUrl(pokemonType.type.name)"
+          loading="lazy"
+          :src="getImgUrl(pokemonType.type.name, path)"
           class="w-8"
           :alt="pokemonType.type.name"
         />
