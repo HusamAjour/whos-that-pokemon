@@ -5,9 +5,6 @@ export default {
   props: {
     data: Object,
   },
-  data() {
-    return { path: ".." };
-  },
   computed: {
     console: () => console,
     window: () => window,
@@ -50,7 +47,7 @@ export default {
       <div v-for="(pokemonType, index) in data.types" :key="index">
         <img
           loading="lazy"
-          :src="getImgUrl(pokemonType.type.name, path)"
+          :src="getImgUrl(pokemonType.type.name)"
           class="w-8"
           :alt="pokemonType.type.name"
         />
